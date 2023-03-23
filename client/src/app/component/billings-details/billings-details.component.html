@@ -1,0 +1,102 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentBilling.billId">
+    <h4>Billings</h4>
+    <div>
+      <label><strong>Name:</strong></label> {{ currentBilling.billerName }}
+    </div>
+    <div>
+      <label><strong>amount:</strong></label>
+      {{ currentBilling.billAmount }}
+    </div>
+    <div>
+      <label><strong>Status:</strong></label>
+      {{ currentBilling.billPaid ? "Paid" : "Pending" }}
+    </div>
+
+    <a
+      class="btn btn-info m-2"
+      routerLink="/billings/{{ currentBilling.billId }}"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentBilling">
+    <br />
+    <p>Please click on a billing...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentBilling.billId" class="edit-form">
+    <h4>Billings</h4>
+    <form>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="currentBilling.billerName"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="amount">amount</label>
+        <input
+          type="text"
+          class="form-control"
+          id="amount"
+          [(ngModel)]="currentBilling.billAmount"
+          name="description"
+        />
+      </div>
+
+      <div class="form-group">
+        <label><strong>Status:</strong></label>
+        {{ currentBilling.billPaid ? "Paid" : "Pending" }}
+      </div>
+    </form>
+
+<!--    <button
+      class="btn btn-info m-2"
+      *ngIf="currentBilling.billPaid"
+      (click)="updatePaid(false)"
+    >
+      UnPublish
+    </button>
+    <button
+      *ngIf="!currentBilling.billPaid"
+      class="btn btn-info m-2"
+      (click)="updatePaid(true)"
+    >
+      Publish
+    </button>-->
+    <button
+      class="btn btn-info m-2"
+      (click)="updatePaid(!currentBilling.billPaid)"
+    >
+      {{currentBilling.billPaid ? "cancel payment" : "pay now"}}
+    </button>
+
+
+    <button class="btn btn-danger m-2" (click)="deleteBilling()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="btn btn-success m-2"
+      (click)="updateBilling()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentBilling.billId">
+    <br />
+    <p>Cannot access this Tutorial...</p>
+  </div>
+</ng-template>
+

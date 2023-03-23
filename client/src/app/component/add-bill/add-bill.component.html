@@ -1,0 +1,35 @@
+<div>
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          required
+          [(ngModel)]="billing.billerName"
+          name="title"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="amount">amount</label>
+        <input
+          class="form-control"
+          id="amount"
+          required
+          [(ngModel)]="billing.billAmount"
+          name="description"
+        />
+      </div>
+
+      <button (click)="saveBilling()" class="btn btn-success">Submit</button>
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>Tutorial was submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newBilling()">Add</button>
+    </div>
+  </div>
+</div>
